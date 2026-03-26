@@ -1,0 +1,33 @@
+Git Commands
+---------------
+git init - creates a got folder in our project
+git status
+git add servr.js
+git add . (Add all files)
+git commit -m "Added login API"
+git log
+git remote add origin https://github.com/username/repo.git
+git push -u origin main
+git pull origin main
+git clone https://github.com/username/repo.git (Download the project)
+git checkout -b feature-login(create new branch and switch branch)
+git checkout main
+git merge feature-login
+git reset server.txt (or) add in .gitognore
+git rm --cached secret.txt(remove file even if it is committed)
+
+To get latest code of a branch into my current working branch
+git checkout develop
+git pull origin develop
+git checkout dept
+get merge develop(this will bring latest develop code into dept branch)
+
+Files conflicted
+fix conflict
+git add .
+git commit -m conflict resolved
+
+
+
+
+

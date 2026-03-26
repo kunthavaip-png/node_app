@@ -1,0 +1,94 @@
+array_map(function($item){
+return[
+'id'=>$item['id'],
+'dept_name'=>$item['dept_name'],
+]},$dept);
+
+$result = array_filter([1,2,3,4],function($item){
+return $item > 0
+});
+$result [2=>3,3=>4]
+
+as array_filter will keep the original array key and return result in new array
+if we need to reindex array we can use array_values($result)
+
+array_filter = where condition, array_map - select columns
+
+$names=array_column($dept,'dept_name');
+$div_heads = array_column($dept,'div_head');
+
+as array_column will return particular column $names will be ['hr','admin']
+
+[6,5,2,8,1]
+usort($dept, function($a, $b) {
+    return $b['id'] <=> $a['id'];
+});
+
+here $a,$b are just two numbers from the array and $a<=>$b mans ascending and $b<=>$a means descending order as a rule
+
+
+class ParentClass {
+    public static function who() {
+        echo "Parent";
+    }
+
+    public static function test() {
+        static::who(); //
+    }
+}
+
+class ChildClass extends ParentClass {
+    public static function who() {
+        echo "Child";
+    }
+}
+
+ChildClass::test() ->child
+
+
+polymorphism
+-------------
+Polymorphism allows objects of different classes to be treated as objects of a common base class. In PHP, it can be implemented through inheritance and interfaces.
+
+php
+interface Shape {
+    public function area();
+}
+
+class Circle implements Shape {
+    private $radius;
+
+    public function __construct($radius) {
+        $this->radius = $radius;
+    }
+
+    public function area() {
+        return pi() * $this->radius ** 2;
+    }
+}
+
+class Rectangle implements Shape {
+    private $width, $height;
+public function __construct($width, $height) {
+        $this->width = $width;
+        $this->height = $height;
+    }
+
+    public function area() {
+        return $this->width * $this->height;
+    }
+}
+
+function printArea(Shape $shape) {
+    echo "Area: " . $shape->area() . "\n";
+}
+
+$circle = new Circle(5);
+$rectangle = new Rectangle(4, 6);
+
+printArea($circle);     // Outputs: Area: 78.539816339745
+printArea($rectangle);  // Outputs: Area: 24
+
+
+
+
