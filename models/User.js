@@ -12,6 +12,17 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: true
     },
+    email: {
+      type: String,
+      trim: true,
+      default: null,
+      set: v => v === '' ? null : v
+    },
+    phone: {
+      type: String,
+      equired: true,
+      trim: true
+    },
 
     role_ids: [
       {
