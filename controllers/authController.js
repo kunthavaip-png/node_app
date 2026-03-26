@@ -5,6 +5,7 @@ const RoleMenuMapping = require("../models/RoleMenuMapping");
 const { comparePassword } = require("../utils/passwordUtils");
 const { sendSuccess, sendError } = require('../utils/responseHandler');
 const { generateToken } = require("../config/token");
+const redisClient = require("../config/redis");
 
 exports.login = async (req, res) => {
   
@@ -35,10 +36,17 @@ exports.login = async (req, res) => {
       menus,
       token
     };
-      sendSuccess(res, 'Login successfully',200,userData );
-    
-    
-    
+      sendSuccess(res, 'Login successfully',200,userData );  
+};
+exports. logout = async (req, res) => {
+    const token = req.headers.authorization?.split(' ')[1];
 
-  
+    if (!token) {
+        return sendError(res, 'No token provided.', 401);
+    }
+
+    await redisClient.set(`bl_${token}`, "logout", {
+    EX: 60 * 60 // match token expiry (1 hour)
+  }); 
+    sendSuccess(res, 'Logout successful', 200);
 };

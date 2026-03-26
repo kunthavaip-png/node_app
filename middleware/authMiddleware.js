@@ -2,7 +2,7 @@ const jwt = require("jsonwebtoken");
 const Role = require("../models/Role");
 const User = require("../models/User");
 const { sendSuccess, sendError } = require("../utils/responseHandler");
-
+const redisClient = require("../config/redis");
 function authorizeRoles(...allowedRoles) {
   return async (req, res, next) => {
     try {
@@ -14,6 +14,11 @@ function authorizeRoles(...allowedRoles) {
       if (!token) {
         return sendError(res, 'Unauthorized.', 403);
         
+      }
+      const isBlacklisted = await redisClient.get(`bl_${token}`);
+
+      if (isBlacklisted) {
+        return sendError(res, 'Logged out.', 403);        
       }
       // Decode token
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
